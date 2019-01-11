@@ -1,0 +1,35 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "网盘管理",
+        "version": "0.1"
+    },
+    "paths": {
+        "/netspace/test": {
+            "get": {
+                "tags": [
+                    "网盘"
+                ],
+                "summary": "检查邮件是否已被注册",
+                "operationId": "App\\Http\\Controllers\\V1\\NetspaceController::test",
+                "parameters": [
+                    {
+                        "parameter": "email",
+                        "name": "email",
+                        "in": "query",
+                        "description": "邮箱地址",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                }
+            }
+        }
+    }
+}
