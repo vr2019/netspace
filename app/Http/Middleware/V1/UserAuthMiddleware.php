@@ -4,6 +4,7 @@ namespace App\Http\Middleware\v1;
 
 use Closure;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use GuzzleHttp\Client;
 
 class UserAuthMiddleware
 {
@@ -16,7 +17,7 @@ class UserAuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $usercheckurl = 'http://192.168.1.23:4445/userauth/';
+        $usercheckurl = 'http://192.168.1.22:4444/userauth/';
         $routerx = explode('?', $request->GetRequestUri())[0];
 
         $rts = $request->route();
@@ -26,6 +27,9 @@ class UserAuthMiddleware
         $routename = $rts[1]['as'];
 
         //TODO:: 检查权限
+        $headers = $request->server->getHeaders();
+        $token = $headers['AUTHORIZATION'];
+
         $headers = ['Authorization'=>$token];
         $client = new Client(['base_uri' => $usercheckurl]);
         $response = $client->request('GET', 'auth/isauth', ['headers'=>$headers]);

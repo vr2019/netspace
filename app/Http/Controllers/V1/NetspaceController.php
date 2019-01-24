@@ -17,7 +17,7 @@ class NetspaceController extends BaseController{
     use Helpers;
 
     private $userId = '';
-    private $allowExt = array('txt');
+    private $allowExt = array('txt', 'jpeg', 'jpg', 'png');
 
     /**
      * @OA\Info(title="网盘管理", version="0.1")
@@ -220,6 +220,13 @@ class NetspaceController extends BaseController{
         return Storage::disk('uploads')->download($path, $ff->vr_ShowName);
     }
 
+    public function GetFileById(Request $request, $fileid){
+        $this->userId = $this->checkAuthUser($request);
+        $ff = $this->_checkFile($fileid);
+
+        return $ff;
+    }
+
 
     //////////////////////////////////////////////////////////////////////
     private function _checkUploadFile($request){
@@ -296,9 +303,10 @@ class NetspaceController extends BaseController{
         return $spaceType;
     }
     private function checkAuthUser($request){
-        $userid = $request->query('userid');
+        $userid = $request->input('userid');
+        
         if(!$userid){
-            throw new UnauthorizedHttpException('no auth');
+            throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('no auth');
         }
         return $userid;
     }

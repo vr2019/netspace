@@ -34,6 +34,8 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\V1'], function($api){
 
         $api->get('/download/{fileid}', ['as'=>'vr.netspace.downloadfile', 'uses'=>'NetspaceController@DownloadFile']);
 
+        $api->get('/file/{fileid}', ['as'=>'vr.netspace.getfilebyid', 'uses'=>'NetspaceController@GetFileById']);
+
     });
 
 
