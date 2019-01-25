@@ -220,6 +220,15 @@ class NetspaceController extends BaseController{
         return Storage::disk('uploads')->download($path, $ff->vr_ShowName);
     }
 
+    public function Downloadpicture(Request $request, $fileid){
+        $ff = SpaceFileModal::find($fileid);
+        if(!$ff){
+            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('文件/文件夹不存在');
+        }
+        $path = $ff->vr_FileName;
+        return Storage::disk('uploads')->download($path, $ff->vr_ShowName);
+    }
+
     public function GetFileById(Request $request, $fileid){
         $this->userId = $this->checkAuthUser($request);
         $ff = $this->_checkFile($fileid);

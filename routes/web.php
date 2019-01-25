@@ -19,6 +19,8 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['namespace' => 'App\Http\Controllers\V1'], function($api){
 
+    $api->get('/picture/{fileid}', ['as'=>'vr.netspace.picture', 'uses'=>'NetspaceController@Downloadpicture']);
+
     $api->group(['middleware' => ['checkuserauth']], function($api){
         
         //测试路由

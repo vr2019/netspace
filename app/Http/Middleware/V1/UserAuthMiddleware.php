@@ -17,7 +17,7 @@ class UserAuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $usercheckurl = 'http://192.168.1.22:4444/userauth/';
+        $usercheckurl = env('USER_URL');
         $routerx = explode('?', $request->GetRequestUri())[0];
 
         $rts = $request->route();
